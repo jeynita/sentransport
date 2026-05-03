@@ -1,0 +1,7 @@
+.footer {
+  background-color: #333; /* Gris foncé */
+  color: white;           /* Texte blanc */
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}

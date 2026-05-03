@@ -40,5 +40,6 @@
         "activityBar.activeBorder": "#99ea1f",
         "activityBarBadge.foreground": "#000000",
         "activityBarBadge.background": "#99ea1f"
-    }
+    },
+    "snyk.advanced.autoSelectOrganization": true
 }
