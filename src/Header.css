@@ -1,8 +1,26 @@
-        .footer {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    text-align: center;
-    padding: 16px;
-    margin-top: 40px;
+        .sen-transport-header {
+    background-color: #016A3a; 
+    color: #ffffff;            
+    text-align: center;        
+    padding: 24px 16px;        
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+    .header-titre {
+    margin: 0 0 4px 0;
+    font-size: 2rem;
+    font-weight: bold;
+    }
+
+    .header-soustitre {
+    margin: 0 0 12px 0;
+    font-size: 1rem;
+    opacity: 0.9; 
+    }
+
+    .header-date span {
+    background-color: rgba(0, 0, 0, 0.2); 
+    padding: 4px 12px;
+    border-radius: 9999px; 
     font-size: 0.85rem;
     }
