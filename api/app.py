@@ -5,21 +5,26 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+# Chargement de la liste des lignes de bus
 with open("lignes_ddd.json", "r") as f:
     lignes = json.load(f)
+
+# AJOUT LAB 6 (Étape 3) : Chargement du fichier des coordonnées GPS des arrêts
+with open("arrets.json", "r") as f:
+    arrets = json.load(f)
 
 @app.route("/")
 def accueil():
     return jsonify({
         "message": "Bienvenue sur l'API SenTransport !",
-        "endpoints": ["/lignes", "/lignes/<id>"]
+        "endpoints": ["/lignes", "/lignes/<id>", "/arrets"]
     })
 
 @app.route("/lignes")
 def get_lignes():
     return jsonify(lignes)
 
-# Cet endpoint gère précisément l'Exercice 3
+# Cet endpoint gère précisément l'Exercice 3 du Lab 5
 @app.route("/lignes/<int:ligne_id>")
 def get_ligne(ligne_id):
     ligne = next(
@@ -30,15 +35,10 @@ def get_ligne(ligne_id):
         return jsonify({"erreur": "Ligne non trouvee"}), 404
     return jsonify(ligne)
 
+# NOUVEL ENDPOINT LAB 6 (Étape 3) : Renvoie le JSON complet avec les latitudes/longitudes
 @app.route("/arrets")
-def get_all_arrets():
-    ensemble_arrets = set()
-    for ligne in lignes:
-        for arret in ligne["listeArrets"]:
-            ensemble_arrets.add(arret)  
-    
-    liste_finale = sorted(list(ensemble_arrets))
-    return jsonify(liste_finale)  
+def get_arrets():
+    return jsonify(arrets)
 
 @app.route("/stats")
 def get_statistiques():
