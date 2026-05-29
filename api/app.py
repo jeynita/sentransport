@@ -19,6 +19,7 @@ def accueil():
 def get_lignes():
     return jsonify(lignes)
 
+# Cet endpoint gère précisément l'Exercice 3
 @app.route("/lignes/<int:ligne_id>")
 def get_ligne(ligne_id):
     ligne = next(

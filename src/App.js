@@ -15,7 +15,11 @@ function App() {
   const [ligneSelectionnee, setLigneSelectionnee] = useState(null);
   const [compteur, setCompteur] = useState(0);
 
-  useEffect(() => {
+  // Fonction extraite pour l'Exercice 1
+  const chargerDonnees = () => {
+    setChargement(true);
+    setErreur(null);
+
     fetch("http://localhost:5000/lignes")
       .then(response => {
         if (!response.ok) {
@@ -31,6 +35,11 @@ function App() {
         setErreur(error.message);
         setChargement(false);
       });
+  };
+
+  // Appel unique au chargement initial de l'application
+  useEffect(() => {
+    chargerDonnees();
   }, []);
 
   const gererRecherche = (valeur) => {
@@ -64,6 +73,9 @@ function App() {
     return (
       <div className="erreur">
         <p>Erreur lors de la récupération des données : {erreur}</p>
+        <button onClick={chargerDonnees} className="btn-recharger" style={{ marginTop: '15px', padding: '10px 20px', cursor: 'pointer' }}>
+          Réessayer
+        </button>
       </div>
     );
   }
@@ -79,6 +91,13 @@ function App() {
         />
 
         <p className="compteur">Vous avez effectué {compteur} recherche(s).</p>
+        
+        {/* Bouton de rechargement demandé par l'Exercice 1 */}
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+          <button onClick={chargerDonnees} className="btn-recharger" style={{ padding: '10px 20px', cursor: 'pointer', backgroundColor: '#2e7d32', color: 'white', border: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
+            Recharger les données ...
+          </button>
+        </div>
         
         {lignesFiltrees.length === 0 ? (
           <div className="aucun-resultat">

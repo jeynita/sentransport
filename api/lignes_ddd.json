@@ -44,5 +44,21 @@
     "arrets": 11,
     "listeArrets": ["Yoff Village", "Aeroport LSS",
       "Parcelles U17", "Grand Yoff", "HLM", "Sandaga"]
+  },
+  {
+    "id": 21,
+    "numero": "21",
+    "depart": "Parcelles Assainies",
+    "arrivee": "Guediawaye",
+    "arrets": 3,
+    "listeArrets": ["Terminus 21", "Marché Jeudi", "Hôpital Guediawaye"]
+  },
+  {
+    "id": 24,
+    "numero": "24",
+    "depart": "Grand Yoff",
+    "arrivee": "Palais de Justice",
+    "arrets": 4,
+    "listeArrets": ["Garage Guediawaye", "Liberté 6", "Poste Thiaroye", "Palais de Justice"]
   }
 ]
