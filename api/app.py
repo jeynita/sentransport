@@ -1,5 +1,5 @@
 import json
-from flask import Flask, jsonify
+from flask import Flask, jsonify , request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -11,6 +11,46 @@ with open("lignes_ddd.json", "r") as f:
 
 @app.route("/")
 def accueil():
+    ensemble_arrets = set()
+    for ligne in lignes:
+        for arret in ligne["listeArrets"]:
+            ensemble_arrets.add(arret)  
+    
+        liste_finale = sorted(list(ensemble_arrets))
+    return jsonify(liste_finale)  
+@app.route("/stats")
+def get_statistiques():
+    total_lignes = len(lignes)
+    total_arrets = 0
+    ligne_max_arrets = None
+    max_nb_arrets = -1
+    
+    for ligne in lignes:
+        total_arrets += ligne["arrets"]
+        
+        if ligne["arrets"] > max_nb_arrets:
+            max_nb_arrets = ligne["arrets"]
+            ligne_max_arrets = ligne["numero"]
+
+    return jsonify({
+        "nombre_total_lignes": total_lignes,
+        "nombre_total_arrets": total_arrets,
+        "ligne_avec_le_plus_d_arrets": ligne_max_arrets
+    })
+    
+    
+    @app.route("/lignes/recherche")
+    def rechercher_lignes():
+        mot_cle = request.args.get("q", "").lower()
+        resultats = []
+    for ligne in lignes:
+        depart_minuscule = ligne["depart"].lower()
+        arrivee_minuscule = ligne["arrivee"].lower()
+        
+        if mot_cle in depart_minuscule or mot_cle in arrivee_minuscule:
+            resultats.append(ligne)
+    return jsonify(resultats)
+        
     return jsonify({
         "message": "Bienvenue sur l'API SenTransport !",
         "endpoints": ["/lignes", "/lignes/<id>"]
@@ -30,5 +70,7 @@ def get_ligne(ligne_id):
         return jsonify({"erreur": "Ligne non trouvee"}), 404
     return jsonify(ligne)
 
+@app.route("/arrets")
+def get_all_arrets():
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
